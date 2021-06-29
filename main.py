@@ -81,7 +81,6 @@ class TestWindow(Screen):
 class WindowManager(ScreenManager):
     pass
 
-
 def invalidLogin():
     pop = Popup(title='Invalid Login',
                   content=Label(text='Invalid username or password.'),
