@@ -11,7 +11,7 @@
 
         FloatLayout:
             size: root.width, root.height/2
-
+            
             Label:
                 text: "Create an Account"
                 size_hint: 0.8, 0.2
@@ -84,7 +84,6 @@
     password: password
 
     FloatLayout:
-
         Label:
             text:"Email: "
             font_size: (root.width**2 + root.height**2) / 13**4
@@ -130,6 +129,14 @@
                 root.manager.transition.direction = "right"
                 root.createBtn()
 
+        Button:
+            pos_hint:{"x":0.8,"y":0.09}
+            size_hint: 0.1, 0.1
+            font_size: (root.width**2 + root.height**2) / 13**4
+            text: "Test"
+            on_release:
+                root.manager.transition.direction = "up"
+                root.test()
 
 <MainWindow>:
     n: n
@@ -141,7 +148,8 @@
             id: n
             pos_hint:{"x": 0.1, "top":0.9}
             size_hint:0.8, 0.2
-            text: "Account Name: "
+            font_size: (root.width**2 + root.height**2) / 13**4
+            text: "Donator Name: "
 
         Label:
             id: email
@@ -149,6 +157,7 @@
             size_hint:0.8, 0.2
             text: "Email: "
 
+        
         Label:
             id: created
             pos_hint:{"x": 0.1, "top":0.5}
@@ -162,3 +171,51 @@
             on_release:
                 app.root.current = "login"
                 root.manager.transition.direction = "down"
+<TestWindow>:
+    
+    FloatLayout:
+        Label:
+            id: n
+            pos_hint:{"x": 0.1, "top":0.9}
+            size_hint:0.8, 0.2
+            font_size: (root.width**2 + root.height**2) / 13**4
+            text: "Donation Screen "
+
+        Label:
+            id: org
+            pos_hint:{"x": 0.0, "top":0.7}
+            size_hint:0.8, 0.2
+            text: "Enter the organization: "
+
+        TextInput:
+            id: org
+            font_size: (root.width**2 + root.height**2) / 13**4
+            multiline: False
+            pos_hint: {"x": 0.5 , "top":0.63}
+            size_hint: 0.4, 0.05
+
+        Label:
+            id: n
+            pos_hint:{"x": 0.0, "top":0.4}
+            size_hint:0.8, 0.2
+            text: "Previous Donations:  "
+
+        Button:
+            pos_hint:{"x":0.45, "y": 0.1}
+            size_hint:0.1,0.1
+            text: "Find"
+          
+        Button:
+            pos_hint:{"x":0.8, "y": 0.1}
+            size_hint:0.1,0.1
+            text: "Signout"
+            on_release:
+                app.root.current = "login"
+                root.manager.transition.direction = "down"
+        Button:
+            pos_hint:{"x":0.1, "y": 0.1}
+            size_hint:0.1,0.1
+            text: "Create a Donation"
+            on_release:
+                # app.root.current = "login"
+                # root.manager.transition.direction = "down"
