@@ -55,7 +55,9 @@ class LoginWindow(Screen):
     def reset(self):
         self.email.text = ""
         self.password.text = ""
-
+    def test(self):
+        self.reset()
+        sm.current = "test"
 
 class MainWindow(Screen):
     n = ObjectProperty(None)
@@ -67,12 +69,15 @@ class MainWindow(Screen):
         sm.current = "login"
 
     def on_enter(self, *args):
+        
         password, name, created = db.get_user(self.current)
-        self.n.text = "Account Name: " + name
+        self.n.text = "Donator Name: " + name
         self.email.text = "Email: " + self.current
         self.created.text = "Created On: " + created
-
-
+class TestWindow(Screen):
+    def testbtn(self):
+        self.reset()
+        
 class WindowManager(ScreenManager):
     pass
 
@@ -97,7 +102,7 @@ kv = Builder.load_file("app.kv")
 sm = WindowManager()
 db = DataBase("users.txt")
 
-screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main")]
+screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),TestWindow(name="test")]
 for screen in screens:
     sm.add_widget(screen)
 
@@ -106,6 +111,7 @@ sm.current = "login"
 
 class MyMainApp(App):
     def build(self):
+        self.title = 'Feed The Hungry'
         return sm
 
 

@@ -11,7 +11,7 @@
 
         FloatLayout:
             size: root.width, root.height/2
-
+            
             Label:
                 text: "Create an Account"
                 size_hint: 0.8, 0.2
@@ -84,7 +84,6 @@
     password: password
 
     FloatLayout:
-
         Label:
             text:"Email: "
             font_size: (root.width**2 + root.height**2) / 13**4
@@ -130,6 +129,14 @@
                 root.manager.transition.direction = "right"
                 root.createBtn()
 
+        Button:
+            pos_hint:{"x":0.8,"y":0.09}
+            size_hint: 0.1, 0.1
+            font_size: (root.width**2 + root.height**2) / 13**4
+            text: "Main Screen"
+            on_release:
+                root.manager.transition.direction = "up"
+                root.test()
 
 <MainWindow>:
     n: n
@@ -141,7 +148,37 @@
             id: n
             pos_hint:{"x": 0.1, "top":0.9}
             size_hint:0.8, 0.2
-            text: "Account Name: "
+            font_size: (root.width**2 + root.height**2) / 13**4
+            text: "Donator Name: "
+
+        Label:
+            id: email
+            pos_hint:{"x": 0.1, "top":0.7}
+            size_hint:0.8, 0.2
+            text: "Email: "
+
+        Label:
+            id: created
+            pos_hint:{"x": 0.1, "top":0.5}
+            size_hint:0.8, 0.2
+            text: "Created: "
+
+        Button:
+            pos_hint:{"x":0.2, "y": 0.1}
+            size_hint:0.6,0.2
+            text: "Log Out"
+            on_release:
+                app.root.current = "login"
+                root.manager.transition.direction = "down"
+<TestWindow>:
+    
+    FloatLayout:
+        Label:
+            id: n
+            pos_hint:{"x": 0.1, "top":0.9}
+            size_hint:0.8, 0.2
+            font_size: (root.width**2 + root.height**2) / 13**4
+            text: "Donation Screen "
 
         Label:
             id: email
