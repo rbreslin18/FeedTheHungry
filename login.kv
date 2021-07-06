@@ -1,0 +1,36 @@
+Screen:
+
+    MDCard:
+        size_hint: None, None
+        size: 300, 400
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        elevation: 10
+        padding: 25
+        spacing: 25
+        orientation: 'vertical'
+    MDLabel:
+        id: welcome
+        text: "Feed The Hungry"
+        pos_hint: {"center_x": 0.5, "center_y": 0.7}
+        size_hint: None, None
+        font_size: 16
+    MDTextFieldRound:
+        id: user
+        hint_text: "username"
+        size_hint_x: None
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        icon_right: "account"
+        width: 200
+    MDTextFieldRound:
+        id: pass
+        hint_text: "password"
+        size_hint_x: None
+        pos_hint: {"center_x": 0.5, "center_y": 0.4}
+        icon_right: "eye-off"
+        width: 200
+    MDRoundFlatButton:
+        id: Button:
+        text: "Login"
+        size_hint_x: None
+        pos_hint: {"center_x": 0.5, "center_y": 0.3}
+
