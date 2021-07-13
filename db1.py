@@ -46,7 +46,7 @@ class DataBase:
             
     def validate(email, password):
         with connect:
-            sql = ("DELETE FROM logins WHERE email=?")
+            sql = ("SELECT FROM logins WHERE email=?")
             cr.execute(sql, (email,))
        
             if sql != -1:
