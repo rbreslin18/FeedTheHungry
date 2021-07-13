@@ -1,0 +1,40 @@
+# my.kv
+<MyGrid>:
+    GridLayout:
+        cols:1
+        size: root.width, root.height
+
+        GridLayout:
+            cols:1
+            Label:
+                text: "Category: "
+
+        GridLayout:
+            cols:2
+
+            Label:
+                text: "Dry Food: "
+
+            TextInput:
+                multinline:False
+
+            Label:
+                text: "Fresh Food: "
+
+            TextInput:
+                multiline:False
+
+
+
+            Label:
+                text: "Fresh Food: "
+
+            TextInput:
+                multiline:False
+
+        Button:
+            text:"Submit"
+            on_press: app.btn()
+
+
+     
