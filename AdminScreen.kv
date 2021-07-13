@@ -1,0 +1,48 @@
+<Home>:
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint_y:.3
+            orientation: 'vertical'
+
+            BoxLayout:
+                size_hint_y:.2
+                Label:
+                    id:Toplabel
+                    text:"Kivy Database !"
+                
+
+            BoxLayout:
+                size_hint_y:.1
+                orientation: 'horizontal'
+                TextInput:
+                    id:name
+                    hint_text:"Name"
+					write_tab: False
+                TextInput:
+                    id:lname
+                    hint_text:" email"
+					write_tab: False
+                TextInput:
+                    id:ID
+                    hint_text:"password"
+					write_tab: False
+            BoxLayout:
+                size_hint_y:.1
+                Button:
+                    text:"Insert"
+                    on_press:root.getuser()
+                Button:
+                    text:"Update"
+					
+                Button:
+                    text:"delete"
+					on_press:root.deleteuser() 
+                
+        BoxLayout:
+            size_hint_y:.8
+            Button:
+                text:'Table'
+				on_press:root.displayuser()
+                
+            # RecycleView 
