@@ -5,7 +5,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
-from database import DataBase
+
 from db1 import DataBase
 
 class CreateAccountWindow(Screen):
@@ -16,8 +16,8 @@ class CreateAccountWindow(Screen):
     def submit(self):
         if self.namee.text != "" and self.email.text != "" and self.email.text.count("@") == 1 and self.email.text.count(".") > 0:
             if self.password != "":
-                DataBase.add(self.email.text, self.password.text, self.namee.text) #Add to database
-                DataBase.read() #read into console
+                DataBase.add(self.namee.text, self.email.text, self.password.text) #Add to database
+                DataBase.read() #Display current database
 
                 self.reset()
 
@@ -40,14 +40,18 @@ class CreateAccountWindow(Screen):
 class LoginWindow(Screen):
     email = ObjectProperty(None)
     password = ObjectProperty(None)
-
+   
     def loginBtn(self):
-        #if db.validate(self.email.text, self.password.text):
-            #MainWindow.current = self.email.text
-            #self.reset()
+        logEmail = self.email.text
+        logPass = self.password.text
+        print(logEmail)
+        print(logPass)
+        if DataBase.validate(logEmail, logPass):
+            DataBase.read()
+            self.reset()
             sm.current = "main"
-        #else:
-            #invalidLogin()
+        else:
+            invalidLogin()
 
     def createBtn(self):
         self.reset()
