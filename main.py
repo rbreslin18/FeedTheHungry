@@ -6,7 +6,7 @@ from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from database import DataBase
-
+from db1 import DataBase
 
 class CreateAccountWindow(Screen):
     namee = ObjectProperty(None)
@@ -16,7 +16,8 @@ class CreateAccountWindow(Screen):
     def submit(self):
         if self.namee.text != "" and self.email.text != "" and self.email.text.count("@") == 1 and self.email.text.count(".") > 0:
             if self.password != "":
-                db.add_user(self.email.text, self.password.text, self.namee.text)
+                DataBase.add(self.email.text, self.password.text, self.namee.text) #Add to database
+                DataBase.read() #read into console
 
                 self.reset()
 
@@ -41,12 +42,12 @@ class LoginWindow(Screen):
     password = ObjectProperty(None)
 
     def loginBtn(self):
-        if db.validate(self.email.text, self.password.text):
-            MainWindow.current = self.email.text
-            self.reset()
+        #if db.validate(self.email.text, self.password.text):
+            #MainWindow.current = self.email.text
+            #self.reset()
             sm.current = "main"
-        else:
-            invalidLogin()
+        #else:
+            #invalidLogin()
 
     def createBtn(self):
         self.reset()
@@ -68,16 +69,13 @@ class MainWindow(Screen):
     def logOut(self):
         sm.current = "login"
 
-    def on_enter(self, *args):
+  
         
-        password, name, created = db.get_user(self.current)
-        self.n.text = "Donator Name: " + name
-        self.email.text = "Email: " + self.current
-        self.created.text = "Created On: " + created
+        
 class TestWindow(Screen):
     def testbtn(self):
         self.reset()
-        
+
 class WindowManager(ScreenManager):
     pass
 
@@ -99,7 +97,7 @@ def invalidForm():
 kv = Builder.load_file("app.kv")
 
 sm = WindowManager()
-db = DataBase("users.txt")
+
 
 screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),TestWindow(name="test")]
 for screen in screens:
