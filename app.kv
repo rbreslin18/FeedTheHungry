@@ -75,7 +75,7 @@
             on_release:
                 root.manager.transition.direction = "left"
                 root.submit()
-                root.termsPage()
+
 
 <LoginWindow>:
     name: "login"
@@ -128,16 +128,7 @@
             on_release:
                 root.manager.transition.direction = "right"
                 root.createBtn()
-                
-        Button:
-            pos_hint:{"x":0.7,"y":0.3}
-            size_hint: 0.1, 0.1
-            font_size: (root.width**2 + root.height**2) / 17**4
-            text: "Reset Password"
-            on_release:
-                root.manager.transition.direction = "right"
-                root.rePass()
-               
+
         Button:
             pos_hint:{"x":0.8,"y":0.09}
             size_hint: 0.1, 0.1
@@ -181,6 +172,7 @@
                 app.root.current = "login"
                 root.manager.transition.direction = "down"
 <TestWindow>:
+    
     FloatLayout:
         Label:
             id: n
@@ -225,94 +217,5 @@
             size_hint:0.1,0.1
             text: "Create a Donation"
             on_release:
-                app.root.current = "createOrder"
-                root.manager.transition.direction = "down"
-
-<resetPasswordWindow>:
-   
-    FloatLayout:
-        Label:
-            id: n
-            pos_hint:{"x": 0.1, "top":0.9}
-            size_hint:0.8, 0.2
-            font_size: (root.width**2 + root.height**2) / 13**4
-            text: "Reset Your Password "
-
-        Label:
-            id: org
-            pos_hint:{"x": 0.0, "top":0.7}
-            size_hint:0.8, 0.2
-            text: "Enter Current Password "
-
-        TextInput:
-            id: oldpass
-            font_size: (root.width**2 + root.height**2) / 13**4
-            multiline: False
-            pos_hint: {"x": 0.5 , "top":0.63}
-            size_hint: 0.4, 0.05
-
-        Label:
-            id: n
-            pos_hint:{"x": 0.0, "top":0.4}
-            size_hint:0.8, 0.2
-            text: "New Password  "
-        TextInput:
-            id: newpass
-            font_size: (root.width**2 + root.height**2) / 13**4
-            multiline: False
-            pos_hint: {"x": 0.5 , "top":0.33}
-            size_hint: 0.4, 0.05
-        Button:
-            pos_hint:{"x":0.45, "y": 0.1}
-            size_hint:0.1,0.1
-            text: "Submit"
-            on_press:root.resetPass()
-            
-        Button:
-            pos_hint:{"x":0.8, "y": 0.1}
-            size_hint:0.1,0.1
-            text: "Back"
-            on_release:
-                app.root.current = "login"
-                root.manager.transition.direction = "left"
-<CreateOrderWindow>:
-    GridLayout:
-        cols:1
-        size: root.width, root.height
-
-        GridLayout:
-            cols:1
-            Label:
-                text: "Category: "
-
-        GridLayout:
-            cols:2
-
-            Label:
-                text: "Dry Food: "
-
-            TextInput:
-                multinline:False
-
-            Label:
-                text: "Fresh Food: "
-
-            TextInput:
-                multiline:False
-
-
-
-            Label:
-                text: "Fresh Food: "
-
-            TextInput:
-                multiline:False
-
-        Button:
-            text:"Submit"
-            #on_press: app.btn()
-        Button:
-            text:"Back"
-            on_release: 
-                app.root.current = "test"
-                root.manager.transition.direction = "up"
+                # app.root.current = "login"
+                # root.manager.transition.direction = "down"

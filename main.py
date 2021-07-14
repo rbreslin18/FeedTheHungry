@@ -5,18 +5,18 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
-from kivy.uix.dropdown import DropDown
-from db1 import DataBase
+
+from Admin_DB import DataBase
 
 class CreateAccountWindow(Screen):
     namee = ObjectProperty(None)
     email = ObjectProperty(None)
     password = ObjectProperty(None)
-
+    DataBase.add("admin","admin@admin.com","321","yes")
     def submit(self):
         if self.namee.text != "" and self.email.text != "" and self.email.text.count("@") == 1 and self.email.text.count(".") > 0:
             if self.password != "":
-                DataBase.add(self.namee.text, self.email.text, self.password.text) #Add to database
+                DataBase.add(self.namee.text, self.email.text, self.password.text, "no") #Add to database
                 DataBase.read() #Display current database
 
                 self.reset()
@@ -36,44 +36,39 @@ class CreateAccountWindow(Screen):
         self.password.text = ""
         self.namee.text = ""
 
-    def termsPage(self):
-        pop = Popup(title='Terms and Coniditions',
-                  content=Label(text='Agree to the following Terms'),
-                  size_hint=(None, None), size=(400, 400))
 
-        pop.open()
-
-class LoginWindow(Screen): #Define Login Window
-    email = ObjectProperty(None) #Email variable for user
-    password = ObjectProperty(None) #password variable for user
+class LoginWindow(Screen):
+    email = ObjectProperty(None)
+    password = ObjectProperty(None)
    
-    def loginBtn(self):  #define login button
+    def loginBtn(self):
         logEmail = self.email.text
         logPass = self.password.text
-        print(logEmail) #dev testing for variables
-        print(logPass) #dev testing for variables
-        if DataBase.validate(logEmail, logPass): #check if database has the username and password provided
-            DataBase.read() #dev testing to display database
-            self.reset() #reset variables
-            sm.current = "main" #set users screen to the main screen
+        print(logEmail)
+        print(logPass)
+        if DataBase.validate(logEmail, logPass):
+            DataBase.read()
+            self.reset()
+            sm.current = "main"
+        elif DataBase.validate(logEmail, logPass) and DataBase.getAdmin("yes") == "yes")):
+            DataBase.read()
+            self.reset()
+            sm.current = "test"
         else:
             invalidLogin()
 
-    def createBtn(self): #Create account button
+    def createBtn(self):
         self.reset()
-        sm.current = "create" #Transitions to create account screen when pressed
+        sm.current = "create"
 
     def reset(self):
         self.email.text = ""
         self.password.text = ""
-    def test(self): #Test Button
+    def test(self):
         self.reset()
-        sm.current = "test" #Transitions to the donators page to skip logging in
-    def rePass(self): #Reset password button
-        self.password.text = ""
-        sm.current = "resetPass" #transistions to reset password screen when pressed
+        sm.current = "test"
 
-class MainWindow(Screen): #Define Main Window
+class MainWindow(Screen):
     n = ObjectProperty(None)
     created = ObjectProperty(None)
     email = ObjectProperty(None)
@@ -82,24 +77,12 @@ class MainWindow(Screen): #Define Main Window
     def logOut(self):
         sm.current = "login"
 
-class TestWindow(Screen): #Define Test Window
+  
+        
+        
+class TestWindow(Screen):
     def testbtn(self):
         self.reset()
-
-class CreateOrderWindow(Screen): #Define CreateOrderWindow
-    def testbtn(self):
-        self.reset()     
-
-class resetPasswordWindow(Screen): #Define resetPasswordWindow
-    oldPassword = ObjectProperty(None)
-    newPassword = ObjectProperty(None)
-    def testbtn(self):
-        self.reset()
-    def resetPass(self):
-        oldPassword = self.ids.oldpass.text
-        newPassword = self.ids.newpass.text
-        DataBase.update(oldPassword, newPassword)
-        DataBase.read()
 
 class WindowManager(ScreenManager):
     pass
@@ -120,19 +103,21 @@ def invalidForm():
 
 
 kv = Builder.load_file("app.kv")
+
 sm = WindowManager()
-#Below is the screens that are used by the screen manager and allow buttons to transition
-screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),TestWindow(name="test"),resetPasswordWindow(name="resetPass"),CreateOrderWindow(name="createOrder")]
-for screen in screens: #for each screen in the array of screens
-    sm.add_widget(screen) #add the screen
+
+
+screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),TestWindow(name="test")]
+for screen in screens:
+    sm.add_widget(screen)
 
 sm.current = "login"
 
 
 class MyMainApp(App):
     def build(self):
-        self.title = 'Feed The Hungry' #title for the application
-        return sm #return screen manager
+        self.title = 'Feed The Hungry'
+        return sm
 
 
 if __name__ == "__main__":
