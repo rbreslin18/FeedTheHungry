@@ -44,8 +44,10 @@ class DataBase:
                 return True #return true if there is an email and password present with the login given
             else:
                 return False    #return false if no login with those credentials are present
-
-
+    def update(email, password):# checks for email to find password
+        with connect:
+            cr.execute('UPDATE logins SET password = ? WHERE password = ?', (password, email)) #set password when email is found in database
+            connect.commit()
 
     # read data from database
     def read():

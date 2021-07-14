@@ -63,6 +63,9 @@ class LoginWindow(Screen):
     def test(self):
         self.reset()
         sm.current = "test"
+    def rePass(self):
+        self.password.text = ""
+        sm.current = "resetPass"
 
 class MainWindow(Screen):
     n = ObjectProperty(None)
@@ -79,6 +82,17 @@ class MainWindow(Screen):
 class TestWindow(Screen):
     def testbtn(self):
         self.reset()
+        
+class resetPasswordWindow(Screen):
+    oldPassword = ObjectProperty(None)
+    newPassword = ObjectProperty(None)
+    def testbtn(self):
+        self.reset()
+    def resetPass(self):
+        oldPassword = self.ids.oldpass.text
+        newPassword = self.ids.newpass.text
+        DataBase.update(oldPassword, newPassword)
+        DataBase.read()
 
 class WindowManager(ScreenManager):
     pass
@@ -103,7 +117,7 @@ kv = Builder.load_file("app.kv")
 sm = WindowManager()
 
 
-screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),TestWindow(name="test")]
+screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),TestWindow(name="test"),resetPasswordWindow(name="resetPass")]
 for screen in screens:
     sm.add_widget(screen)
 
