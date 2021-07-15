@@ -75,7 +75,7 @@
             on_release:
                 root.manager.transition.direction = "left"
                 root.submit()
-
+                root.termsPage()
 
 <LoginWindow>:
     name: "login"
@@ -128,7 +128,16 @@
             on_release:
                 root.manager.transition.direction = "right"
                 root.createBtn()
-
+                
+        Button:
+            pos_hint:{"x":0.7,"y":0.3}
+            size_hint: 0.1, 0.1
+            font_size: (root.width**2 + root.height**2) / 17**4
+            text: "Reset Password"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.rePass()
+               
         Button:
             pos_hint:{"x":0.8,"y":0.09}
             size_hint: 0.1, 0.1
@@ -137,6 +146,7 @@
             on_release:
                 root.manager.transition.direction = "up"
                 root.test()
+               
 
 <MainWindow>:
     n: n
@@ -172,7 +182,6 @@
                 app.root.current = "login"
                 root.manager.transition.direction = "down"
 <TestWindow>:
-    
     FloatLayout:
         Label:
             id: n
@@ -217,5 +226,171 @@
             size_hint:0.1,0.1
             text: "Create a Donation"
             on_release:
-                # app.root.current = "login"
-                # root.manager.transition.direction = "down"
+                app.root.current = "createOrder"
+                root.manager.transition.direction = "down"
+        Button:
+            pos_hint:{"x":0.3, "y": 0.1}
+            size_hint:0.1,0.1
+            text: "Organization Screen"
+            on_release:
+                app.root.current = "org"
+                root.manager.transition.direction = "down"
+        Button:
+            pos_hint:{"x":0.6, "y": 0.1}
+            size_hint:0.1,0.1
+            text: "Admin Screen"
+            on_release:
+                app.root.current = "admin"
+                root.manager.transition.direction = "down"
+<resetPasswordWindow>:
+   
+    FloatLayout:
+        Label:
+            id: n
+            pos_hint:{"x": 0.1, "top":0.9}
+            size_hint:0.8, 0.2
+            font_size: (root.width**2 + root.height**2) / 13**4
+            text: "Reset Your Password "
+
+        Label:
+            id: org
+            pos_hint:{"x": 0.0, "top":0.7}
+            size_hint:0.8, 0.2
+            text: "Enter Current Password "
+
+        TextInput:
+            id: oldpass
+            font_size: (root.width**2 + root.height**2) / 13**4
+            multiline: False
+            pos_hint: {"x": 0.5 , "top":0.63}
+            size_hint: 0.4, 0.05
+
+        Label:
+            id: n
+            pos_hint:{"x": 0.0, "top":0.4}
+            size_hint:0.8, 0.2
+            text: "New Password  "
+        TextInput:
+            id: newpass
+            font_size: (root.width**2 + root.height**2) / 13**4
+            multiline: False
+            pos_hint: {"x": 0.5 , "top":0.33}
+            size_hint: 0.4, 0.05
+        Button:
+            pos_hint:{"x":0.45, "y": 0.1}
+            size_hint:0.1,0.1
+            text: "Submit"
+            on_press:root.resetPass()
+            
+        Button:
+            pos_hint:{"x":0.8, "y": 0.1}
+            size_hint:0.1,0.1
+            text: "Back"
+            on_release:
+                app.root.current = "login"
+                root.manager.transition.direction = "left"
+<CreateOrderWindow>:
+    GridLayout:
+        cols:1
+        size: root.width, root.height
+
+        GridLayout:
+            cols:1
+            Label:
+                text: "Category: "
+
+        GridLayout:
+            cols:2
+
+            Label:
+                text: "Dry Food: "
+
+            TextInput:
+                multinline:False
+
+            Label:
+                text: "Fresh Food: "
+
+            TextInput:
+                multiline:False
+
+
+
+            Label:
+                text: "Fresh Food: "
+
+            TextInput:
+                multiline:False
+
+        Button:
+            text:"Submit"
+            #on_press: app.btn()
+        Button:
+            text:"Back"
+            on_release: 
+                app.root.current = "test"
+                root.manager.transition.direction = "up"
+<OrganizationWindow>:
+    FloatLayout:
+        Label:
+            text: "Organization Screen"
+            pos_hint: {"x":0.3, "top":0.9}
+            size_hint: 0.35, 0.15
+        Button:
+            text: "Back"
+            size_hint: 0.1, 0.22
+            on_release:
+                app.root.current = "test"
+                root.manager.transition.direction = "up"
+<AdminWindow>:
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint_y:.3
+            orientation: 'vertical'
+
+            BoxLayout:
+                size_hint_y:.2
+                Label:
+                    id:Toplabel
+                    text:"Kivy Database !"
+                
+
+            BoxLayout:
+                size_hint_y:.1
+                orientation: 'horizontal'
+                TextInput:
+                    id:name
+                    hint_text:"Name"
+					write_tab: False
+                TextInput:
+                    id:lname
+                    hint_text:" email"
+					write_tab: False
+                TextInput:
+                    id:ID
+                    hint_text:"password"
+					write_tab: False
+            BoxLayout:
+                size_hint_y:.1
+                Button:
+                    text:"Insert"
+                    on_press:root.getuser()
+                Button:
+                    text:"Update"
+					on_press:root.updateuser()
+                Button:
+                    text:"delete"
+					on_press:root.deleteuser() 
+                
+        BoxLayout:
+            size_hint_y:.8
+            Button:
+                text:'Table'
+				on_press:root.readtable()
+            Button:
+                text: "Back"
+                size_hint: 0.1, 0.22
+                on_release:
+                    app.root.current = "test"
+                    root.manager.transition.direction = "up"
