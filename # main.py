@@ -10,21 +10,35 @@ from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.uix.textinput import TextInput
 from kivy.uix.widget import Widget
-
+from kivy.uix.screenmanager import ScreenManager, Screen
 
 
 
 class MyGrid(Widget):
     pass
 
+ 
+ 
+    def popup(self):
+        pop=Popup(title="Popup",
+                 content=Label(text=" Are you sure you wnat to submit"),
+                 size_hint=(None, None), size= (400,400))
+     
+        pop.open()
 
+
+class NoTitleDialog(Popup):
+    pass
 
 class MyApp(App): 
     def build(self):
         return MyGrid()
 
-        
+
+    
         
 
 if __name__ == "__main__":
     MyApp().run()
+
+    
