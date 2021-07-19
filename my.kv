@@ -1,4 +1,5 @@
-# my.kv
+
+        # my.kv
 <MyGrid>:
     GridLayout:
         cols:1
@@ -34,7 +35,11 @@
 
         Button:
             text:"Submit"
-            on_press: app.btn()
+            on_press: 
+                root.popup()
+
+
+
 
 
      
