@@ -21,7 +21,7 @@ class MyGrid(Widget):
  
     def popup(self):
         pop=Popup(title="Popup",
-                 content=Label(text=" Are you sure you wnat to submit"),
+                 content=Label(text=" Are you sure you wnat to cancel"),
                  size_hint=(None, None), size= (400,400))
      
         pop.open()
