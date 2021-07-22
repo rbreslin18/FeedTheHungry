@@ -7,19 +7,25 @@ from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivy.uix.dropdown import DropDown
 from db1 import DataBase
-
+from kivy.uix.checkbox import CheckBox
+from kivymd.app import MDApp
 
 class CreateAccountWindow(Screen):
     namee = ObjectProperty(None)
     email = ObjectProperty(None)
     password = ObjectProperty(None)
-
     def submit(self):
         if self.namee.text != "" and self.email.text != "" and self.email.text.count("@") == 1 and self.email.text.count(".") > 0:
             if self.password != "":
-                DataBase.add(self.namee.text, self.email.text, self.password.text) #Add to database
-                DataBase.read() #Display current database
-
+                if self.ids.adm.active: #Checks if the admin checkbox is active
+                    DataBase.add(self.namee.text, self.email.text, self.password.text, "admin") #Add to database
+                    DataBase.read() #Display current database
+                elif self.ids.organ.active: #checks if the organization checkbox is active
+                    DataBase.add(self.namee.text, self.email.text, self.password.text, "org") #Add to database
+                    DataBase.read() #Display current database
+                elif self.ids.donator.active: #checks if the donator checkbox is active
+                    DataBase.add(self.namee.text, self.email.text, self.password.text, "donator") #Add to database
+                    DataBase.read() #Display current database
                 self.reset()
 
                 sm.current = "login"
@@ -43,6 +49,9 @@ class CreateAccountWindow(Screen):
                   size_hint=(None, None), size=(400, 400))
 
         pop.open()
+    
+
+        
 
 class LoginWindow(Screen): #Define Login Window
     
@@ -55,9 +64,17 @@ class LoginWindow(Screen): #Define Login Window
         print(logEmail) #dev testing for variables
         print(logPass) #dev testing for variables
         if DataBase.validate(logEmail, logPass): #check if database has the username and password provided
+            if DataBase.validateType(logEmail, "admin"): #Check if the type is admin
+                sm.current = "admin"
+            elif DataBase.validateType(logEmail, "donator"): #check if the type is donator
+                sm.current = "donator"
+            elif DataBase.validateType(logEmail, "org"): #check if the type is organization
+                sm.current = "org"
+           
+            
             DataBase.read() #dev testing to display database
             self.reset() #reset variables
-            sm.current = "main" #set users screen to the main screen
+            #sm.current = "main" #set users screen to the main screen
         else:
             invalidLogin()
 
@@ -91,27 +108,42 @@ class TestWindow(Screen): #Define Test Window
         self.reset()
 
 class CreateOrderWindow(Screen): #Define CreateOrderWindow
+    id = ObjectProperty(None)
+    foodtype = ObjectProperty(None)
+    creator = ObjectProperty(None)
+    reciever = ObjectProperty(None)
+    def submitOrder(self): #Submit Order function to submit to orders database
+        DataBase.addOrder(self.ids.ID.text,self.ids.type.text,self.ids.creator.text,self.ids.reciever.text) #Currently just adds in these variables from user input, will change to make sure all order ids are unique
+        DataBase.readOrders() #dev testing to read orders to see if the database actually worked
     def testbtn(self):
         self.reset()     
+    def submit(self): 
+        pop = Popup(title='Are you Sure?',# Test popup
+                  content=Label(text='Are you sure you want to create this order?'),
+                  size_hint=(None, None), size=(400, 400))
+
+        pop.open() #open popup
 
 class resetPasswordWindow(Screen): #Define resetPasswordWindow
     oldPassword = ObjectProperty(None)
     newPassword = ObjectProperty(None)
     def testbtn(self):
         self.reset()
-    def resetPass(self):
+    def resetPass(self): # Update password function to change database
         oldPassword = self.ids.oldpass.text
         newPassword = self.ids.newpass.text
-        DataBase.updatePass(oldPassword, newPassword)
-        DataBase.read()
+        DataBase.updatePass(oldPassword, newPassword) #changes database with new password that a user has entered
+        DataBase.read() #dev testing - read to the log to check the change
+
 class OrganizationWindow(Screen): #Define class Organization Scren
-    pass
+   pass
+
 class AdminWindow(Screen): #Define class Admin Window
     def getuser(self):
         name = self.ids.name.text
         email = self.ids.lname.text
         password = self.ids.ID.text
-        DataBase.add(name,email,password)
+        DataBase.add(name,email,password) #Add function to allow admins to change user information
         DataBase.read()
         self.ids.Toplabel.text = "User Inserted !"
         
@@ -159,8 +191,10 @@ for screen in screens: #for each screen in the array of screens
 sm.current = "login"
 
 
-class MyMainApp(App):
+class MyMainApp(MDApp):
+    
     def build(self):
+        self.theme_cls.theme_style = "Dark"
         self.title = 'Feed The Hungry' #title for the application
         return sm #return screen manager
 

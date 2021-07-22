@@ -76,7 +76,33 @@
                 root.manager.transition.direction = "left"
                 root.submit()
                 root.termsPage()
-
+        Label:
+            size_hint: 0.5,0.12
+            pos_hint: {"x":.7, "y":0.3}
+            text: "Admin? "
+            font_size: (root.width**2 + root.height**2) / 14**4
+        CheckBox:
+            id: adm
+            size_hint: 0.5,0.12
+            pos_hint:{"x":0.6,"y":0.3}
+        Label:
+            size_hint: 0.5,0.12
+            pos_hint: {"x":.7, "y":0.2}
+            text: "Organization? "
+            font_size: 10
+        CheckBox:
+            id: organ
+            size_hint: 0.5,0.12
+            pos_hint:{"x":0.6,"y":0.2}
+        Label:
+            size_hint: 0.5,0.12
+            pos_hint: {"x":.7, "y":0.1}
+            text: "Donator? "
+            font_size: (root.width**2 + root.height**2) / 14**4
+        CheckBox:
+            id: donator
+            size_hint: 0.5,0.12
+            pos_hint:{"x":0.6,"y":0.1}
 <LoginWindow>:
     name: "login"
 
@@ -86,34 +112,34 @@
     FloatLayout:
         Label:
             text:"Email: "
-            font_size: (root.width**2 + root.height**2) / 13**4
+            font_size: 26
             pos_hint: {"x":0.1, "top":0.9}
             size_hint: 0.35, 0.15
 
         TextInput:
             id: email
-            font_size: (root.width**2 + root.height**2) / 13**4
+            font_size: 14
             multiline: False
-            pos_hint: {"x": 0.45 , "top":0.9}
-            size_hint: 0.4, 0.15
+            pos_hint: {"x": 0.45 , "top":0.85}
+            size_hint: 0.4, 0.05
             write_tab: False
         Label:
             text:"Password: "
-            font_size: (root.width**2 + root.height**2) / 13**4
+            font_size: 26
             pos_hint: {"x":0.1, "top":0.7}
             size_hint: 0.35, 0.15
 
         TextInput:
             id: password
-            font_size: (root.width**2 + root.height**2) / 13**4
+            font_size: 14
             multiline: False
             password: True
-            pos_hint: {"x": 0.45, "top":0.7}
-            size_hint: 0.4, 0.15
+            pos_hint: {"x": 0.45, "top":0.65}
+            size_hint: 0.4, 0.05
             write_tab: False
         Button:
             pos_hint:{"x":0.2,"y":0.05}
-            size_hint: 0.6, 0.2
+            size_hint: 0.6, 0.08
             font_size: (root.width**2 + root.height**2) / 13**4
             text: "Login"
             on_release:
@@ -243,7 +269,7 @@
                 app.root.current = "admin"
                 root.manager.transition.direction = "down"
 <resetPasswordWindow>:
-   
+
     FloatLayout:
         Label:
             id: n
@@ -290,6 +316,10 @@
                 app.root.current = "login"
                 root.manager.transition.direction = "left"
 <CreateOrderWindow>:
+    id: id
+    foodtype: type 
+    creator: creator
+    reciever: reciever
     GridLayout:
         cols:1
         size: root.width, root.height
@@ -298,38 +328,38 @@
             cols:1
             Label:
                 text: "Category: "
-
-        GridLayout:
-            cols:2
-
             Label:
-                text: "Dry Food: "
+                id: Food Type
+                text: "Food Type:  "
 
             TextInput:
-                multinline:False
-
+                id: type
+                multiline:False
             Label:
-                text: "Fresh Food: "
+                text: "Creator: "
 
             TextInput:
+                id: creator
                 multiline:False
 
-
-
             Label:
-                text: "Fresh Food: "
+                
+                text: "Reciever: "
 
             TextInput:
+                id: reciever
                 multiline:False
 
         Button:
             text:"Submit"
-            #on_press: app.btn()
+            on_press: root.submitOrder()
+            
         Button:
             text:"Back"
             on_release: 
                 app.root.current = "test"
                 root.manager.transition.direction = "up"
+                root.submit()
 <OrganizationWindow>:
     FloatLayout:
         Label:
@@ -342,6 +372,13 @@
             on_release:
                 app.root.current = "test"
                 root.manager.transition.direction = "up"
+        Label:
+            text: "Select an order"
+            pos_hint: {"x":0.2, "top":0.7}
+        Label:
+            text: "Request food"
+            pos_hint: {"x":0.2, "top":0.6}
+        
 <AdminWindow>:
     BoxLayout:
         orientation: 'vertical'
