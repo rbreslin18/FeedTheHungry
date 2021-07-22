@@ -1,0 +1,13 @@
+<MyLayout>:
+    Button:
+        text: "Get data"
+        on_press: root.get_data()
+    RecycleView:
+        data: [{'text':"Name:{} Email:{} Password:{}".format(name,email,password)} for name,email,password in root.rows]
+        viewclass: "Label"
+        RecycleBoxLayout:
+            default_size: None, dp(56)
+            default_size_hint: 1, None
+            size_hint_y: None
+			height: self.minimum_height
+            orientation: 'vertical'
