@@ -110,69 +110,63 @@
     password: password
 
     FloatLayout:
-        Label:
-            text:"Email: "
-            font_size: 26
-            pos_hint: {"x":0.1, "top":0.9}
-            size_hint: 0.35, 0.15
-
         TextInput:
             id: email
             font_size: 14
             multiline: False
-            pos_hint: {"x": 0.45 , "top":0.85}
+            pos_hint: {"x": 0.3 , "top":0.65}
             size_hint: 0.4, 0.05
             write_tab: False
-        Label:
-            text:"Password: "
-            font_size: 26
-            pos_hint: {"x":0.1, "top":0.7}
-            size_hint: 0.35, 0.15
-
+            hint_text: "Email"
         TextInput:
             id: password
             font_size: 14
             multiline: False
             password: True
-            pos_hint: {"x": 0.45, "top":0.65}
+            pos_hint: {"x": 0.3, "top":0.58}
             size_hint: 0.4, 0.05
             write_tab: False
+            hint_text: "Password"
         Button:
-            pos_hint:{"x":0.2,"y":0.05}
-            size_hint: 0.6, 0.08
-            font_size: (root.width**2 + root.height**2) / 13**4
-            text: "Login"
+            pos_hint:{"x":0.35,"y":0.3}
+            size_hint: 0.3, 0.08
+            font_size: 15
+            text: "Log in"
+            background_color:'#98ff98'
             on_release:
                 root.manager.transition.direction = "up"
                 root.loginBtn()
 
         Button:
-            pos_hint:{"x":0.3,"y":0.3}
-            size_hint: 0.4, 0.1
-            font_size: (root.width**2 + root.height**2) / 17**4
-            text: "Don't have an Account? Create One"
+            pos_hint:{"x":0.45,"y":0.2}
+            size_hint: 0.1, 0.01
+            font_size: 15
+            text: "Don't have an account? Create one"
+            background_color: 0,0,0,0
+            color: '#98ff98'
             on_release:
                 root.manager.transition.direction = "right"
                 root.createBtn()
                 
         Button:
-            pos_hint:{"x":0.7,"y":0.3}
-            size_hint: 0.1, 0.1
-            font_size: (root.width**2 + root.height**2) / 17**4
-            text: "Reset Password"
+            pos_hint:{"x":0.45,"y":0.45}
+            size_hint: 0.1, 0.01
+            font_size: 15
+            text: "Forgot Password?"
+            background_color: 0,0,0,0
+            color: '#98ff98'
             on_release:
                 root.manager.transition.direction = "right"
                 root.rePass()
                
         Button:
             pos_hint:{"x":0.8,"y":0.09}
-            size_hint: 0.1, 0.1
-            font_size: (root.width**2 + root.height**2) / 13**4
+            size_hint: 0.01, 0.01
+            font_size: 12
             text: "Test"
             on_release:
                 root.manager.transition.direction = "up"
-                root.test()
-               
+                root.test()    
 
 <MainWindow>:
     n: n

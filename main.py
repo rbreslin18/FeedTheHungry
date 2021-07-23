@@ -1,4 +1,7 @@
 # main.py
+# Feed The Hungry App
+# Coded by Rodney Breslin, Aqueelah Akbar, Zaheda Akthar
+# CSC 4111 Summer
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
