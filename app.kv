@@ -322,9 +322,9 @@
             cols:1
             Label:
                 text: "Category: "
-            Label:
-                id: Food Type
-                text: "Food Type:  "
+            TextInput:
+                id: ID
+                
 
             TextInput:
                 id: type
@@ -354,6 +354,10 @@
                 app.root.current = "test"
                 root.manager.transition.direction = "up"
                 root.submit()
+        Button:
+            text:"cancel"
+            on_release:
+                root.cancel()
 <OrganizationWindow>:
     FloatLayout:
         Label:

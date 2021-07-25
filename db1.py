@@ -89,3 +89,7 @@ class DataBase:
             cr.execute("SELECT * FROM orders")
             log = cr.fetchall()
             print(log)
+    def deleteOrder(id):
+        with connect:
+            cr.execute("DELETE FROM orders WHERE id = ?",(id,))
+            connect.commit()

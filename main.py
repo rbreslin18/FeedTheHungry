@@ -126,6 +126,9 @@ class CreateOrderWindow(Screen): #Define CreateOrderWindow
                   size_hint=(None, None), size=(400, 400))
 
         pop.open() #open popup
+    def cancel(self):
+        DataBase.deleteOrder(self.ids.ID.text)
+        DataBase.readOrders()
 
 class resetPasswordWindow(Screen): #Define resetPasswordWindow
     oldPassword = ObjectProperty(None)
