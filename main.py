@@ -9,10 +9,17 @@ from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivy.uix.dropdown import DropDown
-from db1 import DataBase
+from dbfile import DataBase
 from kivy.uix.checkbox import CheckBox
 from kivymd.app import MDApp
-
+from kivy.properties import ListProperty
+import mysql.connector
+import sqlite3 
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.recyclegridlayout import RecycleGridLayout
+from kivy.uix.recycleview.views import RecycleDataViewBehavior
+connect = sqlite3.connect('database.db')
+cr = connect.cursor()
 class CreateAccountWindow(Screen):
     namee = ObjectProperty(None)
     email = ObjectProperty(None)
@@ -169,6 +176,14 @@ class AdminWindow(Screen): #Define class Admin Window
         DataBase.read()
     def readtable(self):
         DataBase.read()
+class ShowOrderWindow(Screen): #Show Order Screen
+    rows = ListProperty([("id","type","creator","reciever")])
+    def get_data(self):
+        
+        with connect:
+            cr.execute("SELECT * FROM orders")
+            self.rows = cr.fetchall()
+            print(self.rows)
 class WindowManager(ScreenManager):
     pass
 
@@ -190,7 +205,7 @@ def invalidForm():
 kv = Builder.load_file("app.kv")
 sm = WindowManager()
 #Below is the screens that are used by the screen manager and allow buttons to transition
-screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),TestWindow(name="test"),resetPasswordWindow(name="resetPass"),CreateOrderWindow(name="createOrder"),OrganizationWindow(name="org"),AdminWindow(name="admin")]
+screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),TestWindow(name="test"),resetPasswordWindow(name="resetPass"),CreateOrderWindow(name="createOrder"),OrganizationWindow(name="org"),AdminWindow(name="admin"),ShowOrderWindow(name="showorders")]
 for screen in screens: #for each screen in the array of screens
     sm.add_widget(screen) #add the screen
 

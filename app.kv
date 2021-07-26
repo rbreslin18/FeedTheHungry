@@ -376,6 +376,12 @@
         Label:
             text: "Request food"
             pos_hint: {"x":0.2, "top":0.6}
+        Button:
+            text: "Show Orders"
+            size_hint: 0.1, .22
+            pos_hint: {"x":0.3, "top":0.3}
+            on_release:
+                app.root.current = "showorders"
         
 <AdminWindow>:
     BoxLayout:
@@ -429,3 +435,18 @@
                 on_release:
                     app.root.current = "test"
                     root.manager.transition.direction = "up"
+<ShowOrderWindow>:
+    BoxLayout:
+        Button:
+            text: "Get data"
+            on_press: 
+                root.get_data()
+        RecycleView:
+            data: [{'text':"ID:{} Type:{} Creator:{} Reciever:{}".format(id,type,creator,reciever)} for id,type,creator,reciever in root.rows]
+            viewclass: "Label"
+            RecycleBoxLayout:
+                default_size: None, dp(56)
+                default_size_hint: 1, None
+                size_hint_y: None
+			    height: self.minimum_height
+                orientation: 'vertical'
