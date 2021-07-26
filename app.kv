@@ -441,6 +441,10 @@
             text: "Get data"
             on_press: 
                 root.get_data()
+        Button:
+            text: "Back"
+            on_press:
+                app.root.current = "org"
         RecycleView:
             data: [{'text':"ID:{} Type:{} Creator:{} Reciever:{}".format(id,type,creator,reciever)} for id,type,creator,reciever in root.rows]
             viewclass: "Label"
