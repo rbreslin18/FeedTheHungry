@@ -27,10 +27,8 @@ class CreateAccountWindow(Screen):
     def submit(self):
         if self.namee.text != "" and self.email.text != "" and self.email.text.count("@") == 1 and self.email.text.count(".") > 0:
             if self.password != "":
-                if self.ids.adm.active: #Checks if the admin checkbox is active
-                    DataBase.add(self.namee.text, self.email.text, self.password.text, "admin") #Add to database
-                    DataBase.read() #Display current database
-                elif self.ids.organ.active: #checks if the organization checkbox is active
+            
+                if self.ids.organ.active: #checks if the organization checkbox is active
                     DataBase.add(self.namee.text, self.email.text, self.password.text, "org") #Add to database
                     DataBase.read() #Display current database
                 elif self.ids.donator.active: #checks if the donator checkbox is active
@@ -75,9 +73,9 @@ class LoginWindow(Screen): #Define Login Window
         print(logPass) #dev testing for variables
         if DataBase.validate(logEmail, logPass): #check if database has the username and password provided
             if DataBase.validateType(logEmail, "admin"): #Check if the type is admin
-                sm.current = "admin"
+                sm.current = "test"
             elif DataBase.validateType(logEmail, "donator"): #check if the type is donator
-                sm.current = "donator"
+                sm.current = "donate"
             elif DataBase.validateType(logEmail, "org"): #check if the type is organization
                 sm.current = "org"
            
@@ -177,13 +175,15 @@ class AdminWindow(Screen): #Define class Admin Window
     def readtable(self):
         DataBase.read()
 class ShowOrderWindow(Screen): #Show Order Screen
-    rows = ListProperty([("id","type","creator","reciever")])
+    rows = ListProperty([("id","type","creator","reciever")]) # Variables to be added
     def get_data(self):
         
         with connect:
             cr.execute("SELECT * FROM orders")
             self.rows = cr.fetchall()
             print(self.rows)
+class DonationWindow(Screen):
+    pass
 class WindowManager(ScreenManager):
     pass
 
@@ -205,7 +205,7 @@ def invalidForm():
 kv = Builder.load_file("app.kv")
 sm = WindowManager()
 #Below is the screens that are used by the screen manager and allow buttons to transition
-screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),TestWindow(name="test"),resetPasswordWindow(name="resetPass"),CreateOrderWindow(name="createOrder"),OrganizationWindow(name="org"),AdminWindow(name="admin"),ShowOrderWindow(name="showorders")]
+screens = [DonationWindow(name="donate"),LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),TestWindow(name="test"),resetPasswordWindow(name="resetPass"),CreateOrderWindow(name="createOrder"),OrganizationWindow(name="org"),AdminWindow(name="admin"),ShowOrderWindow(name="showorders")]
 for screen in screens: #for each screen in the array of screens
     sm.add_widget(screen) #add the screen
 
