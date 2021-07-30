@@ -202,21 +202,29 @@ def invalidForm():
     pop.open()
 
 
-kv = Builder.load_file("app.kv")
+
+Builder.load_file("app.kv")
 sm = WindowManager()
 #Below is the screens that are used by the screen manager and allow buttons to transition
-screens = [DonationWindow(name="donate"),LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),TestWindow(name="test"),resetPasswordWindow(name="resetPass"),CreateOrderWindow(name="createOrder"),OrganizationWindow(name="org"),AdminWindow(name="admin"),ShowOrderWindow(name="showorders")]
-for screen in screens: #for each screen in the array of screens
-    sm.add_widget(screen) #add the screen
 
-sm.current = "login"
+
+
 
 
 class MyMainApp(MDApp):
     
     def build(self):
+        screens = [DonationWindow(name="donate"),LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main"),TestWindow(name="test"),resetPasswordWindow(name="resetPass"),CreateOrderWindow(name="createOrder"),OrganizationWindow(name="org"),AdminWindow(name="admin"),ShowOrderWindow(name="showorders")]
+        for screen in screens: #for each screen in the array of screens
+            sm.add_widget(screen) #add the screen
         self.theme_cls.theme_style = "Dark"
+        #self.theme_cls.primary_palette = "Green"
+        #self.theme_cls.accent_palette = "Green"
+        self.theme_cls.set_colors(
+            "Green", "600", "50", "800", "Teal", "600", "100", "800"
+        )
         self.title = 'Feed The Hungry' #title for the application
+        sm.current = "login"
         return sm #return screen manager
 
 
