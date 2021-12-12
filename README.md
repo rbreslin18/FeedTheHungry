@@ -4,6 +4,6 @@
  While there is no APK package currently, the only files you need for this program to compile are the main.py, app.kv, and db1.py
 The application was not fully finalized before the semester ended. There is still some things that need to be done: 
 Order Menu selection, allow organization to select orders
- Display when new orders are created for organizations
- UI Touch Ups
- Previous order for donators
+ 1. Display when new orders are created for organizations
+ 2. UI Touch Ups
+ 3.Previous order for donators
